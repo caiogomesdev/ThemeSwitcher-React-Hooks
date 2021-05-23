@@ -12,7 +12,7 @@ flex-direction: row;
 `
 export const Logo = styled.div`
 
-cursor: pointer; 
+cursor: pointer;
 color: ${props => props.theme.colors.TitleColor};
 font-size: 32px;
 font-weight: bold;

@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState} from 'react'
+
+import Home from './pages/Home'
+import Header from './components/Header'
+
+import { ThemeProvider} from 'styled-components'
+import GlobalStyle from './styles/global'
+
+import light from './styles/themes/light'
+import dark from './styles/themes/dark'
 
 function App() {
+
+  const curretTheme = localStorage.getItem('theme') === 'light' ? light : dark
+  
+  const [theme, setTheme] = useState(curretTheme)
+  
+  function toggleTheme(){
+    setTheme(theme.title === 'light' ? dark : light)
+    localStorage.setItem('theme',theme.title === 'light' ? 'dark' : 'light')
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+        <div className="App">
+          <Header toggleTheme={ toggleTheme } />
+          <Home />
+        </div>
+
+      <GlobalStyle/>
+    </ThemeProvider>
   );
 }
 
